@@ -58,7 +58,7 @@ object AppViewModel {
                     temp.sortedBy { it.id }
                 }
             }
-            delay(100)
+            delay(1000)
             _screenState.emit(ScreenState.Facts)
         }
     }

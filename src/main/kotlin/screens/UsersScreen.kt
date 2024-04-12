@@ -1,7 +1,8 @@
 package screens
 
 import AppViewModel
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mobicon.intuition.intuition.generated.resources.Res
-import com.mobicon.intuition.intuition.generated.resources.bckgr_light
+import com.mobicon.intuition.intuition.generated.resources.splash
 import data.Person
 import data.ScreenState
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -40,7 +41,7 @@ fun UsersScreen(appViewModel: AppViewModel) {
             ) {
                 Text(
                     text = "Play!",
-                    fontSize = 25.sp
+                    fontSize = 36.sp
                 )
             }
         } else {
@@ -50,13 +51,13 @@ fun UsersScreen(appViewModel: AppViewModel) {
                     .background(color = Color(0x992C2C2E))
                     .border(width = 4.dp, color = Color.White, shape = RoundedCornerShape(8.dp))
                     .clip(shape = RoundedCornerShape(8.dp))
-                    .padding(24.dp)
+                    .padding(12.dp)
             ) {
                 Text(
                     text = selectFact!!.fact,
                     modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(vertical = 12.dp),
                     color = Color.White,
-                    fontSize = 48.sp,
+                    fontSize = 36.sp,
                     textAlign = TextAlign.Center
                 )
             }
@@ -77,7 +78,7 @@ fun UsersScreen(appViewModel: AppViewModel) {
 
 }
 
-@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
 @Composable
 private fun PersonItem(
     person: Person,
@@ -86,7 +87,7 @@ private fun PersonItem(
 
 
     val icon = when (person.guessed) {
-        true -> painterResource(Res.drawable.bckgr_light)
+        true -> painterResource(Res.drawable.splash)
         false -> painterResource(person.image)
     }
 
@@ -97,20 +98,28 @@ private fun PersonItem(
             .border(width = 4.dp, color = Color.White, shape = RoundedCornerShape(8.dp))
             .clip(shape = RoundedCornerShape(8.dp))
     ) {
-        Image(
-            painter = icon,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-                .combinedClickable(
-                    enabled = true,
-                    onClick = {},
-                    onDoubleClick = {},
-                    onLongClick = onLongClick
-                ),
-            contentDescription = "",
-            contentScale = ContentScale.Crop
-        )
+        AnimatedContent(
+            targetState = icon,
+            transitionSpec = {
+                (fadeIn() + scaleIn()).togetherWith(fadeOut(animationSpec = tween(200)) + scaleOut(animationSpec = tween(200)))
+            }
+        ) {
+            Image(
+                painter = it,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+                    .combinedClickable(
+                        enabled = true,
+                        onClick = {},
+                        onDoubleClick = {},
+                        onLongClick = onLongClick
+                    ),
+                contentDescription = "",
+                contentScale = ContentScale.Inside
+            )
+        }
+
         if(!person.guessed) {
             Text(
                 text = person.name,
