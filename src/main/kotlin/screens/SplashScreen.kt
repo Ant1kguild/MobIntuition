@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.mobicon.intuition.intuition.generated.resources.Res
+import com.mobicon.intuition.intuition.generated.resources.logo
 import com.mobicon.intuition.intuition.generated.resources.splash
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -21,7 +22,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun SplashScreen(onUserScreen: () -> Unit) {
 
-    val image: DrawableResource = Res.drawable.splash
+    val image: DrawableResource = Res.drawable.logo
     val icon = painterResource(image)
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -31,7 +32,7 @@ fun SplashScreen(onUserScreen: () -> Unit) {
     ) {
         Image(
             painter = icon,
-            modifier = Modifier.fillMaxSize(fraction = 0.5f).align(Alignment.Center).clickable(
+            modifier = Modifier.fillMaxSize(fraction = 0.8f).align(Alignment.Center).clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = { onUserScreen.invoke() }

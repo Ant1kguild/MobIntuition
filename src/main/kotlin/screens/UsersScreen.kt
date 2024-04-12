@@ -39,7 +39,8 @@ fun UsersScreen(appViewModel: AppViewModel) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Play"
+                    text = "Play!",
+                    fontSize = 25.sp
                 )
             }
         } else {

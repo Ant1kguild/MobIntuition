@@ -27,7 +27,7 @@ object AppViewModel {
 
     val backgroundRes = _screenState.map {
         when (it) {
-            ScreenState.Splash -> Res.drawable.bckgr_light
+            ScreenState.Splash -> Res.drawable.bckgr_dark
             ScreenState.Users, ScreenState.Facts -> Res.drawable.bckgr_dark
         }
     }
