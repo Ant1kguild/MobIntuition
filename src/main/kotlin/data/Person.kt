@@ -25,8 +25,8 @@ data class Person(
             fact = "Клал борт и тротуарную плитку в Лошицком парке",
             image = Res.drawable.ic_alexeyk,
             guessed = false,
-            factPos = 20,
-            iconPos = 5
+            factPos = 7,
+            iconPos = 3
         )
 
         private val AlexanderGlushen = Person(
@@ -35,8 +35,8 @@ data class Person(
             fact = "Попал в ДТП на мотоцикле на скорости 160",
             image = Res.drawable.ic_aliaxandrg,
             guessed = false,
-            factPos = 18,
-            iconPos = 2
+            factPos = 16,
+            iconPos = 6
         )
 
 
@@ -46,8 +46,8 @@ data class Person(
             fact = "Профессионально делала химчистку машины",
             image = Res.drawable.ic_vikab,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 1,
+            iconPos = 1
         )
 
         private val AlyonaSorokina = Person(
@@ -56,8 +56,8 @@ data class Person(
             fact = "Гасила известь на растущую луну",
             image = Res.drawable.ic_alyonas,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 6,
+            iconPos = 7
         )
 
         private val AndreyLitvin = Person(
@@ -66,8 +66,8 @@ data class Person(
             fact = "В детстве был моделью белорусского трикотажа",
             image = Res.drawable.ic_andreyl,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 5,
+            iconPos = 9
         )
 
         private val AndreyMishchenko = Person(
@@ -76,8 +76,8 @@ data class Person(
             fact = "Был по локоть в крови спасая человека",
             image = Res.drawable.ic_andreym,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 3,
+            iconPos = 16
         )
 
         private val ElenaSannikova = Person(
@@ -86,8 +86,8 @@ data class Person(
             fact = "Работала на ОНТ",
             image = Res.drawable.ic_elenas,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 15,
+            iconPos = 10
         )
 
         private val HannaPrystauka = Person(
@@ -96,8 +96,8 @@ data class Person(
             fact = "Нашла сестру через \"Жди меня\"",
             image = Res.drawable.ic_hannap,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 17,
+            iconPos = 14
         )
 
         private val HellenVenichik = Person(
@@ -106,8 +106,8 @@ data class Person(
             fact = "Может угостить вкусной домашней выпечкой или апперкотом в челюсть",
             image = Res.drawable.ic_hellenv,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 13,
+            iconPos = 8
         )
 
         private val IharMakarevich = Person(
@@ -116,8 +116,8 @@ data class Person(
             fact = "Вместо ресторана ходил с будущей невесторй в стриптиз",
             image = Res.drawable.ic_iharm,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 11,
+            iconPos = 12
         )
 
         private val YuraVaskevich = Person(
@@ -126,8 +126,8 @@ data class Person(
             fact = "Когда был маленький прокатил бабушку на свинье",
             image = Res.drawable.ic_jurav,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 2,
+            iconPos = 5
         )
 
         private val KristinaDanilava = Person(
@@ -146,8 +146,8 @@ data class Person(
             fact = "В 17 лет подрабатывала по ночам, упаковывала подарки",
             image = Res.drawable.ic_lenam,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 14,
+            iconPos = 13
         )
 
         private val MashaUhn = Person(
@@ -156,8 +156,8 @@ data class Person(
             fact = "Поймала щуку на 1 кг",
             image = Res.drawable.ic_mashau,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 8,
+            iconPos = 15
         )
 
         private val PetrSannikov = Person(
@@ -166,8 +166,8 @@ data class Person(
             fact = "Изучал японский до Java",
             image = Res.drawable.ic_petrs,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 9,
+            iconPos = 2
         )
 
         private val VladPavluts = Person(
@@ -176,8 +176,8 @@ data class Person(
             fact = "Когда переплывал Днепр, чуть не переехала моторная лодка",
             image = Res.drawable.ic_vladp,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 12,
+            iconPos = 11
         )
 
         private val Slava = Person(
@@ -186,8 +186,8 @@ data class Person(
             fact = "Однажды умение организовывать пьянки чуть не стоило ему места в общаге",
             image = Res.drawable.ic_slavad,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 4,
+            iconPos = 17
         )
 
         private val VeraVasiukevich = Person(
@@ -196,8 +196,8 @@ data class Person(
             fact = "Любит шампанское с тех пор как бутылка от него порезала ей лицо",
             image = Res.drawable.ic_verav,
             guessed = false,
-            factPos = 10,
-            iconPos = 4
+            factPos = 18,
+            iconPos = 0
         )
 
         fun allPersons() : List<Person> = listOf(

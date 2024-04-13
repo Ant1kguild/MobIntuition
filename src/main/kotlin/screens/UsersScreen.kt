@@ -33,7 +33,7 @@ fun UsersScreen(appViewModel: AppViewModel) {
     val persons by appViewModel.icons.collectAsState(emptyList())
     val selectFact by appViewModel.selectedPersonFact.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize().padding(100.dp)) {
+    Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
         if (selectFact == null) {
             Button(
                 onClick = { appViewModel.changeScreen(ScreenState.Facts) },
@@ -78,13 +78,12 @@ fun UsersScreen(appViewModel: AppViewModel) {
 
 }
 
-@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
 @Composable
 private fun PersonItem(
     person: Person,
     onLongClick: () -> Unit
 ) {
-
 
     val icon = when (person.guessed) {
         true -> painterResource(Res.drawable.splash)
@@ -101,7 +100,7 @@ private fun PersonItem(
         AnimatedContent(
             targetState = icon,
             transitionSpec = {
-                (fadeIn() + scaleIn()).togetherWith(fadeOut(animationSpec = tween(200)) + scaleOut(animationSpec = tween(200)))
+                (fadeIn(animationSpec = tween(400)) + scaleIn(animationSpec = tween(400))).togetherWith(fadeOut(animationSpec = tween(400)) + scaleOut(animationSpec = tween(400)))
             }
         ) {
             Image(

@@ -7,6 +7,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.lighthousegames.logging.logging
+import kotlin.random.Random
 
 @ExperimentalResourceApi
 object AppViewModel {
