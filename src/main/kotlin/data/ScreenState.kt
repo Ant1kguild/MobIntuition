@@ -3,5 +3,6 @@ package data
 enum class ScreenState {
     Splash,
     Facts,
-    Users
+    Users,
+    Final
 }

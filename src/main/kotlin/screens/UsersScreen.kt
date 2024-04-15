@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -90,17 +88,29 @@ private fun PersonItem(
         false -> painterResource(person.image)
     }
 
+    var isSelected by remember { mutableStateOf(false) }
+    val borderColor = remember(isSelected) {
+        when (isSelected) {
+            true -> Color.Green
+            false -> Color.White
+        }
+    }
+
     Box(
         modifier = Modifier
             .size(200.dp, 250.dp)
             .padding(25.dp)
-            .border(width = 4.dp, color = Color.White, shape = RoundedCornerShape(8.dp))
+            .border(width = 4.dp, color = borderColor, shape = RoundedCornerShape(8.dp))
             .clip(shape = RoundedCornerShape(8.dp))
     ) {
         AnimatedContent(
             targetState = icon,
             transitionSpec = {
-                (fadeIn(animationSpec = tween(400)) + scaleIn(animationSpec = tween(400))).togetherWith(fadeOut(animationSpec = tween(400)) + scaleOut(animationSpec = tween(400)))
+                (fadeIn(animationSpec = tween(400)) + scaleIn(animationSpec = tween(400))).togetherWith(
+                    fadeOut(animationSpec = tween(400)) + scaleOut(
+                        animationSpec = tween(400)
+                    )
+                )
             }
         ) {
             Image(
@@ -110,16 +120,25 @@ private fun PersonItem(
                     .align(Alignment.Center)
                     .combinedClickable(
                         enabled = true,
-                        onClick = {},
+                        onClick = {
+                            if (!isSelected) {
+                                isSelected = true
+                            }
+                        },
                         onDoubleClick = {},
-                        onLongClick = onLongClick
+                        onLongClick = {
+                            if (!isSelected) {
+                                isSelected = true
+                            }
+                            onLongClick.invoke()
+                        }
                     ),
                 contentDescription = "",
                 contentScale = ContentScale.Inside
             )
         }
 
-        if(!person.guessed) {
+        if (!person.guessed) {
             Text(
                 text = person.name,
                 modifier = Modifier.background(color = Color(0x992C2C2E)).fillMaxWidth().align(Alignment.BottomCenter).padding(vertical = 12.dp),

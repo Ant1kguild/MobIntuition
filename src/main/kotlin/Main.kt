@@ -18,8 +18,10 @@ import org.lighthousegames.logging.KmLogging
 import org.lighthousegames.logging.logging
 import screens.FactsScreen
 import data.ScreenState
+import data.ScreenState.*
 import kotlinx.coroutines.flow.map
 import org.jetbrains.compose.resources.painterResource
+import screens.FinishScreen
 import screens.SplashScreen
 import screens.UsersScreen
 
@@ -50,9 +52,10 @@ fun main() = application {
             animationSpec = tween(durationMillis = 1000)
         ) {
             when (it) {
-                ScreenState.Splash -> SplashScreen(onUserScreen = { appViewModel.changeScreen(ScreenState.Users) })
-                ScreenState.Facts -> FactsScreen(appViewModel)
-                ScreenState.Users -> UsersScreen(appViewModel)
+                Splash -> SplashScreen(onUserScreen = { appViewModel.changeScreen(Users) })
+                Facts -> FactsScreen(appViewModel)
+                Users -> UsersScreen(appViewModel)
+                Final -> FinishScreen()
             }
         }
 

@@ -19,7 +19,7 @@ object AppViewModel {
     val screenState: StateFlow<ScreenState> = _screenState
 
     private val _selectedPersonFact = MutableStateFlow<Person?>(null)
-    val selectedPersonFact : StateFlow<Person?> = _selectedPersonFact
+    val selectedPersonFact: StateFlow<Person?> = _selectedPersonFact
 
     private val _persons = MutableStateFlow(Person.allPersons())
 
@@ -29,38 +29,38 @@ object AppViewModel {
     val backgroundRes = _screenState.map {
         when (it) {
             ScreenState.Splash -> Res.drawable.bckgr_dark
-            ScreenState.Users, ScreenState.Facts -> Res.drawable.bckgr_dark
+            ScreenState.Users, ScreenState.Facts, ScreenState.Final -> Res.drawable.bckgr_dark
         }
     }
 
 
     fun changeScreen(newState: ScreenState) {
-        scope.launch {
-            logger.info { "changeScreen(newState: $newState)" }
-            _screenState.emit(newState)
-        }
+        scope.launch { _screenState.emit(newState) }
     }
 
-    fun onSelectPersonFact(person : Person) {
+    fun onSelectPersonFact(person: Person) {
         scope.launch {
-            logger.info { "onSelectPersonFact(person: $person)" }
             _selectedPersonFact.emit(person)
             _screenState.emit(ScreenState.Users)
         }
     }
 
-    fun checkPersonFact(person : Person) {
+    fun checkPersonFact(person: Person) {
         scope.launch {
-            if(person.fact == _selectedPersonFact.value?.fact) {
-                _persons.update {list ->
+            if (person.fact == _selectedPersonFact.value?.fact) {
+                _persons.update { list ->
                     val temp = list.toMutableList()
                     temp.remove(person)
                     temp.add(person.copy(guessed = true))
                     temp.sortedBy { it.id }
                 }
             }
-            delay(1000)
-            _screenState.emit(ScreenState.Facts)
+            delay(150)
+            val isNotEnd = _persons.value.any { !it.guessed }
+            delay(800)
+            val screen = if (isNotEnd) ScreenState.Facts else ScreenState.Final
+            delay(150)
+            _screenState.emit(screen)
         }
     }
 
