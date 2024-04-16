@@ -31,19 +31,14 @@ fun main() = application {
 
     KmLogging.setLoggers(DesktopLogger.logger)
 
-
     Window(
         onCloseRequest = ::exitApplication,
         state = WindowState(placement = WindowPlacement.Floating),
         title = "Intuition",
     ) {
-        val logger = logging("Screen")
+
         val appViewModel = AppViewModel
-
-
-
         val screen by appViewModel.screenState.collectAsState()
-
         val background by appViewModel.backgroundRes.collectAsState(Res.drawable.bckgr_light)
 
         Crossfade(
@@ -58,7 +53,5 @@ fun main() = application {
                 Final -> FinishScreen()
             }
         }
-
-
     }
 }
