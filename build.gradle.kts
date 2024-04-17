@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.JvmApplicationBuildTypes
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -11,6 +12,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://jitpack.io")
     google()
 }
 
@@ -30,7 +32,7 @@ dependencies {
     implementation("ch.qos.logback:logback-core:1.5.3")
     implementation("ch.qos.logback:logback-classic:1.5.2")
     implementation("org.slf4j:slf4j-api:2.0.12")
-
+    implementation("com.github.umjammer:jlayer:1.0.3")
     implementation(kotlin("reflect"))
 }
 
@@ -40,6 +42,12 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            buildTypes {
+                release {
+                    proguard.optimize = true
+                    proguard.isEnabled = true
+                }
+            }
             packageName = "Intuition"
             packageVersion = "1.0.0"
         }

@@ -4,6 +4,8 @@ import AppViewModel
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -13,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,8 +25,13 @@ import com.mobicon.intuition.intuition.generated.resources.Res
 import com.mobicon.intuition.intuition.generated.resources.splash
 import data.Person
 import data.ScreenState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.lighthousegames.logging.logging
+import sound.rememberSoundController
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
 @Composable
@@ -31,37 +40,30 @@ fun UsersScreen(appViewModel: AppViewModel) {
     val persons by appViewModel.icons.collectAsState(emptyList())
     val selectFact by appViewModel.selectedPersonFact.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
-        if (selectFact == null) {
-            Button(
-                onClick = { appViewModel.changeScreen(ScreenState.Facts) },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "Play!",
-                    fontSize = 36.sp
-                )
-            }
-        } else {
+    Column(
+        modifier = Modifier.padding(top = 200.dp, bottom = 200.dp, start = 200.dp, end = 200.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (selectFact != null) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Color(0x992C2C2E))
                     .border(width = 4.dp, color = Color.White, shape = RoundedCornerShape(8.dp))
                     .clip(shape = RoundedCornerShape(8.dp))
-                    .padding(12.dp)
+                    .padding(12.dp),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = selectFact!!.fact,
-                    modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(vertical = 12.dp),
+                    modifier = Modifier.padding(vertical = 12.dp),
                     color = Color.White,
                     fontSize = 36.sp,
                     textAlign = TextAlign.Center
                 )
             }
         }
-
-        Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
 
         FlowRow(
             modifier = Modifier.fillMaxSize(),
@@ -83,6 +85,8 @@ private fun PersonItem(
     onLongClick: () -> Unit
 ) {
 
+    val sound = rememberSoundController("files/sound_wait.mp3")
+
     val icon = when (person.guessed) {
         true -> painterResource(Res.drawable.splash)
         false -> painterResource(person.image)
@@ -91,7 +95,7 @@ private fun PersonItem(
     var isSelected by remember { mutableStateOf(false) }
     val borderColor = remember(isSelected) {
         when (isSelected) {
-            true -> Color.Green
+            true -> Color.Cyan
             false -> Color.White
         }
     }
@@ -118,20 +122,30 @@ private fun PersonItem(
                 modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.Center)
+                    .pointerInput(Unit) {
+                        awaitPointerEventScope {
+
+                            while (true) {
+                                val event = awaitPointerEvent()
+
+                                when(event.type) {
+                                    PointerEventType.Enter -> {
+                                        isSelected = true
+                                        sound.playSound()
+                                    }
+                                    PointerEventType.Exit -> {
+                                        isSelected = false
+                                        sound.stopPlaySound()
+                                    }
+                                }
+                            }
+                        }
+                    }
                     .combinedClickable(
                         enabled = true,
-                        onClick = {
-                            if (!isSelected) {
-                                isSelected = true
-                            }
-                        },
+                        onClick = {},
                         onDoubleClick = {},
-                        onLongClick = {
-                            if (!isSelected) {
-                                isSelected = true
-                            }
-                            onLongClick.invoke()
-                        }
+                        onLongClick = { onLongClick.invoke() }
                     ),
                 contentDescription = "",
                 contentScale = ContentScale.Inside

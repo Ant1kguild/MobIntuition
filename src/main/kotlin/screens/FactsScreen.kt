@@ -71,13 +71,14 @@ private fun PersonFactItem(person: Person, onClick: () -> Unit) {
     ) {
         Box(
             modifier = Modifier
-                .size(width = 650.dp, 100.dp)
+                .size(width = 650.dp, 125.dp)
                 .backgroundCustom(!person.guessed)
                 .clickable(enabled = !person.guessed, onClick = onClick),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = person.fact,
+                modifier = Modifier.padding(10.dp),
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,

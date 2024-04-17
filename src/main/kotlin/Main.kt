@@ -47,7 +47,7 @@ fun main() = application {
             animationSpec = tween(durationMillis = 1000)
         ) {
             when (it) {
-                Splash -> SplashScreen(onUserScreen = { appViewModel.changeScreen(Users) })
+                Splash -> SplashScreen(appViewModel)
                 Facts -> FactsScreen(appViewModel)
                 Users -> UsersScreen(appViewModel)
                 Final -> FinishScreen()
