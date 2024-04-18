@@ -20,7 +20,7 @@ object AppViewModel {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
 
-    private val _screenState = MutableStateFlow(ScreenState.Splash)
+    private val _screenState = MutableStateFlow<ScreenState>(ScreenState.Splash)
     val screenState: StateFlow<ScreenState> = _screenState
 
     private val _selectedPersonFact = MutableStateFlow<Person?>(null)
@@ -31,12 +31,7 @@ object AppViewModel {
     val icons: Flow<List<Person>> = _persons.map { list -> list.sortedBy { it.iconPos } }
     val facts: Flow<List<Person>> = _persons.map { list -> list.sortedBy { it.factPos } }
 
-    val backgroundRes = _screenState.map {
-        when (it) {
-            ScreenState.Splash -> Res.drawable.bckgr_dark
-            ScreenState.Users, ScreenState.Facts, ScreenState.Final -> Res.drawable.bckgr_dark
-        }
-    }
+    val backgroundRes = _screenState.map { Res.drawable.bckgr_dark }
 
 
     fun changeScreen(newState: ScreenState) {
@@ -63,21 +58,28 @@ object AppViewModel {
             }
             delay(150)
             val isNotEnd = _persons.value.any { !it.guessed }
-            if(isNotEnd) {
-                when(isFactGuessed) {
+            if (isNotEnd) {
+                when (isFactGuessed) {
                     true -> playSoundCorrect()
                     false -> playSoundIncorrect()
                 }
             }
             delay(800)
-            val screen = if (isNotEnd) {
-                ScreenState.Facts
+            val screen : ScreenState = if (person.factPh != null) {
+                ScreenState.FactProf(person)
             } else {
-                playSoundFinal()
-                ScreenState.Final
+                if (isNotEnd) {
+                    ScreenState.Facts
+                } else {
+                    playSoundFinal()
+                    ScreenState.Final
+                }
+
+
             }
             delay(150)
             _screenState.emit(screen)
+
         }
     }
 
@@ -87,12 +89,13 @@ object AppViewModel {
         val buffer = BufferedInputStream(bufferStream)
         return Player(buffer)
     }
+
     private fun playSoundCorrect() {
         scope.launch(Dispatchers.Default) {
             val player = createPlayer("files/sound_answer_correct.mp3")
             try {
                 player.play()
-            } catch (e : Throwable) {
+            } catch (e: Throwable) {
                 logger.e { "playSoundCorrect(Error -> ${e.message})" }
             }
         }
@@ -103,7 +106,7 @@ object AppViewModel {
             val player = createPlayer("files/sound_answer_incorrect.mp3")
             try {
                 player.play()
-            } catch (e : Throwable) {
+            } catch (e: Throwable) {
                 logger.e { "playSoundCorrect(Error -> ${e.message})" }
             }
         }
@@ -114,7 +117,7 @@ object AppViewModel {
             val player = createPlayer("files/sound_final.mp3")
             try {
                 player.play()
-            } catch (e : Throwable) {
+            } catch (e: Throwable) {
                 logger.e { "playSoundCorrect(Error -> ${e.message})" }
             }
         }

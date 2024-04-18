@@ -18,14 +18,11 @@ import com.mobicon.intuition.intuition.generated.resources.bckgr_light
 import logger.DesktopLogger
 import org.lighthousegames.logging.KmLogging
 import org.lighthousegames.logging.logging
-import screens.FactsScreen
 import data.ScreenState
 import data.ScreenState.*
 import kotlinx.coroutines.flow.map
 import org.jetbrains.compose.resources.painterResource
-import screens.FinishScreen
-import screens.SplashScreen
-import screens.UsersScreen
+import screens.*
 import java.awt.Cursor
 import java.awt.Robot
 import java.awt.Toolkit
@@ -65,6 +62,7 @@ fun main() = application {
                 Facts -> FactsScreen(appViewModel)
                 Users -> UsersScreen(appViewModel)
                 Final -> FinishScreen()
+                is FactProf -> FactProfScreen(appViewModel, it.person)
             }
         }
     }
