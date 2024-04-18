@@ -119,7 +119,7 @@ data class Person(
         private val IharMakarevich = Person(
             id = 9,
             name = "Игорь Макаревич",
-            fact = "Вместо ресторана ходил с будущей невесторй в стриптиз",
+            fact = "Вместо ресторана ходил с будущей невестой в стриптиз",
             image = Res.drawable.ic_iharm,
             guessed = false,
             factPos = 11,
@@ -129,7 +129,7 @@ data class Person(
         private val YuraVaskevich = Person(
             id = 10,
             name = "Юра Васкевич",
-            fact = "Когда был маленький прокатил бабушку на свинье",
+            fact = "Когда был маленький, прокатил бабушку на свинье",
             image = Res.drawable.ic_jurav,
             guessed = false,
             factPos = 2,
