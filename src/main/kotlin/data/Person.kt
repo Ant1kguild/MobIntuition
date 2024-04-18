@@ -9,13 +9,14 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)
 data class Person(
-    val id : Int,
+    val id: Int,
     val name: String,
     val fact: String,
     val image: DrawableResource,
     val guessed: Boolean,
     val factPos: Int,
-    val iconPos: Int
+    val iconPos: Int,
+    val factPh: DrawableResource? = null
 ) {
     companion object {
 
@@ -26,7 +27,8 @@ data class Person(
             image = Res.drawable.ic_alexeyk,
             guessed = false,
             factPos = 7,
-            iconPos = 3
+            iconPos = 3,
+            factPh = Res.drawable.ph_alexeyka
         )
 
         private val AlexanderGlushen = Person(
@@ -57,7 +59,8 @@ data class Person(
             image = Res.drawable.ic_alyonas,
             guessed = false,
             factPos = 6,
-            iconPos = 7
+            iconPos = 7,
+            factPh = Res.drawable.ph_alyonas
         )
 
         private val AndreyLitvin = Person(
@@ -67,7 +70,8 @@ data class Person(
             image = Res.drawable.ic_andreyl,
             guessed = false,
             factPos = 5,
-            iconPos = 9
+            iconPos = 9,
+            factPh = Res.drawable.ph_andreyl
         )
 
         private val AndreyMishchenko = Person(
@@ -87,7 +91,8 @@ data class Person(
             image = Res.drawable.ic_elenas,
             guessed = false,
             factPos = 15,
-            iconPos = 10
+            iconPos = 10,
+            factPh = Res.drawable.ph_elenas
         )
 
         private val HannaPrystauka = Person(
@@ -107,7 +112,8 @@ data class Person(
             image = Res.drawable.ic_hellenv,
             guessed = false,
             factPos = 13,
-            iconPos = 8
+            iconPos = 8,
+            factPh = Res.drawable.ph_hellenv
         )
 
         private val IharMakarevich = Person(
@@ -137,7 +143,8 @@ data class Person(
             image = Res.drawable.ic_krystina,
             guessed = false,
             factPos = 10,
-            iconPos = 4
+            iconPos = 4,
+            factPh = Res.drawable.ph_krystinad
         )
 
         private val LenaMuc = Person(
@@ -157,7 +164,8 @@ data class Person(
             image = Res.drawable.ic_mashau,
             guessed = false,
             factPos = 8,
-            iconPos = 15
+            iconPos = 15,
+            factPh = Res.drawable.ph_mashau
         )
 
         private val PetrSannikov = Person(
@@ -183,7 +191,7 @@ data class Person(
         private val Slava = Person(
             id = 16,
             name = "Слава Дмитров",
-            fact = "Однажды умение организовывать пьянки чуть не стоило ему места в общаге",
+            fact = "Чуть не выгнали из общаги за то, что напоил три этажа старшекурсников",
             image = Res.drawable.ic_slavad,
             guessed = false,
             factPos = 4,
@@ -197,7 +205,8 @@ data class Person(
             image = Res.drawable.ic_verav,
             guessed = false,
             factPos = 18,
-            iconPos = 0
+            iconPos = 0,
+            factPh = Res.drawable.ph_verav
         )
 
         fun allPersons() : List<Person> = listOf(
