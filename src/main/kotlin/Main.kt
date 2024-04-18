@@ -37,7 +37,6 @@ fun main() = application {
 
     KmLogging.setLoggers(DesktopLogger.logger)
 
-    val robot = Robot()
     Window(
         onCloseRequest = ::exitApplication,
         state = WindowState(
@@ -61,9 +60,6 @@ fun main() = application {
             modifier = Modifier.fillMaxSize().paint(painter = painterResource(background), contentScale = ContentScale.FillBounds),
             animationSpec = tween(durationMillis = 1000)
         ) {
-            robot.mouseMove(0,0)
-            robot.mousePress(InputEvent.BUTTON1_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_MASK);
             when (it) {
                 Splash -> SplashScreen(appViewModel)
                 Facts -> FactsScreen(appViewModel)
