@@ -71,7 +71,7 @@ private fun PersonFactItem(person: Person, onClick: () -> Unit) {
     ) {
         Box(
             modifier = Modifier
-                .size(width = 615.dp, 100.dp)
+                .size(width = 550.dp, 100.dp)
                 .backgroundCustom(!person.guessed)
                 .clickable(enabled = !person.guessed, onClick = onClick),
             contentAlignment = Alignment.Center

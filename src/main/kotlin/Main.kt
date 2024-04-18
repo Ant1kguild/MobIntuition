@@ -43,7 +43,7 @@ fun main() = application {
             placement = WindowPlacement.Floating,
             isMinimized = false,
             position = WindowPosition.PlatformDefault,
-            width = 1980.dp,
+            width = 1920.dp,
             height = 1080.dp
         ),
         resizable = true,
