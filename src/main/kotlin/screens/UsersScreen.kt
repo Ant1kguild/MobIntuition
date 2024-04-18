@@ -41,7 +41,7 @@ fun UsersScreen(appViewModel: AppViewModel) {
     val selectFact by appViewModel.selectedPersonFact.collectAsState()
 
     Column(
-        modifier = Modifier.padding(top = 200.dp, bottom = 200.dp, start = 200.dp, end = 200.dp),
+        modifier = Modifier.padding(50.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -102,8 +102,8 @@ private fun PersonItem(
 
     Box(
         modifier = Modifier
-            .size(200.dp, 250.dp)
-            .padding(25.dp)
+            .size(240.dp, 300.dp)
+            .padding(20.dp)
             .border(width = 4.dp, color = borderColor, shape = RoundedCornerShape(8.dp))
             .clip(shape = RoundedCornerShape(8.dp))
     ) {
@@ -155,7 +155,10 @@ private fun PersonItem(
         if (!person.guessed) {
             Text(
                 text = person.name,
-                modifier = Modifier.background(color = Color(0x992C2C2E)).fillMaxWidth().align(Alignment.BottomCenter).padding(vertical = 12.dp),
+                modifier = Modifier
+                    .background(color = Color(0x992C2C2E))
+                    .fillMaxWidth().align(Alignment.BottomCenter)
+                    .padding(vertical = 12.dp, horizontal = 6.dp),
                 color = Color.White,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center

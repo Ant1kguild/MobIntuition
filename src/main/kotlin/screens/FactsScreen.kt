@@ -30,7 +30,7 @@ fun FactsScreen(appViewModel: AppViewModel) {
     val persons by appViewModel.facts.collectAsState(emptyList())
 
     FlowRow(
-        modifier = Modifier.fillMaxSize().padding(100.dp),
+        modifier = Modifier.fillMaxSize().padding(10.dp),
         maxItemsInEachRow = 6,
         horizontalArrangement = Arrangement.Center,
         verticalArrangement = Arrangement.Center
@@ -66,19 +66,19 @@ private fun Modifier.backgroundCustom(isEnable : Boolean) : Modifier = when(isEn
 @Composable
 private fun PersonFactItem(person: Person, onClick: () -> Unit) {
     Box(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
-                .size(width = 650.dp, 125.dp)
+                .size(width = 615.dp, 100.dp)
                 .backgroundCustom(!person.guessed)
                 .clickable(enabled = !person.guessed, onClick = onClick),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = person.fact,
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier.padding(4.dp),
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
