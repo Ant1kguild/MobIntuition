@@ -65,7 +65,7 @@ object AppViewModel {
                 }
             }
             delay(800)
-            val screen : ScreenState = if (person.factPh != null) {
+            val screen : ScreenState = if (person.factPh != null && person.fact == _selectedPersonFact.value?.fact) {
                 ScreenState.FactProf(person)
             } else {
                 if (isNotEnd) {
