@@ -56,27 +56,32 @@ object AppViewModel {
                     temp.sortedBy { it.id }
                 }
             }
-            delay(150)
+            delay(50)
+
+            when (isFactGuessed) {
+                true -> playSoundCorrect()
+                false -> playSoundIncorrect()
+            }
+
+            delay(50)
+
             val isNotEnd = _persons.value.any { !it.guessed }
-            if (isNotEnd) {
-                when (isFactGuessed) {
-                    true -> playSoundCorrect()
-                    false -> playSoundIncorrect()
-                }
+
+            delay(850)
+
+            if (person.factPh != null && person.fact == _selectedPersonFact.value?.fact) {
+                _screenState.emit(ScreenState.FactProf(person))
+                delay(4000)
             }
-            delay(800)
-            val screen : ScreenState = if (person.factPh != null && person.fact == _selectedPersonFact.value?.fact) {
-                ScreenState.FactProf(person)
+
+
+            val screen : ScreenState = if (isNotEnd) {
+                ScreenState.Facts
             } else {
-                if (isNotEnd) {
-                    ScreenState.Facts
-                } else {
-                    playSoundFinal()
-                    ScreenState.Final
-                }
-
-
+                playSoundFinal()
+                ScreenState.Final
             }
+
             delay(150)
             _screenState.emit(screen)
 

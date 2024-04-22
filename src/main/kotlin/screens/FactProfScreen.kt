@@ -52,13 +52,6 @@ fun FactProfScreen(vm: AppViewModel, person: Person) {
             contentDescription = ""
         )
     }
-
-    LaunchedEffect(Unit) {
-        launch(Dispatchers.Default) {
-            delay(4000)
-            vm.changeScreen(ScreenState.Facts)
-        }
-    }
 }
 
 
